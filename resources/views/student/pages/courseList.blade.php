@@ -10,7 +10,14 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">List of courses</h6>
+                <div id="enroll_list">
+                    <a href="{{ url('student-enroll-list') }}" class="btn btn-primary btn-sm float-right">Enroll Course
+                        List</a>
+                </div>
             </div>
+            <div id='st' value="{{ $session_id }}"></div>
+            <div id='st_id' value="{{ $student_id }}"></div>
+
             <div class="card-body">
                 <div id="reg">
 
@@ -49,14 +56,15 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         $(document).ready(function() {
-            let data = sessionStorage.getItem('session_name');
-            console.log(data);
+            // let data = $("#st_id").attr('value');
+            // console.log(data);
+            var session_id = $('#st').attr('value');
             getAllCourses();
             //get all courses
             function getAllCourses() {
                 var str = ""
                 $.ajax({
-                    url: `http://127.0.0.1:8000/api/show-student-course/${data}`,
+                    url: `http://127.0.0.1:8000/api/show-student-course/${session_id}`,
                     type: 'GET',
                     dataType: "json",
                     success: function(result) {
@@ -66,7 +74,7 @@
                             console.log(data);
                             var lent = result.data.length;
                             for (var i = 0; i < lent; i++) {
-                                console.log(data[i].id);
+                                // console.log(data[i].id);
                                 str += `<tr>
                                 <td>
                                     <input type="checkbox" name="section_id" id="section_id" value="${data[i].id}"> 
@@ -137,6 +145,68 @@
                     });
                 }
             })
+
+            // if found course in course list then disable checkbox
+            function disableCheckbox() {
+                var session_id = $('#st').attr('value');
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/show-student-enroll-course',
+                    type: 'GET',
+                    dataType: "json",
+                    success: function(result) {
+                        console.log(result);
+                        if (result.status == 'success') {
+                            var data = result.data;
+                            console.log(data);
+                            var lent = result.data.length;
+                            for (var i = 0; i < lent; i++) {
+                                // console.log(data[i].section_name);
+                                var section_id = data[i].section_id;
+
+                                function name($section_id) {
+                                    var section_id = data[i].section_id;
+                                    $.ajax({
+                                        url: `http://127.0.0.1:8000/api/show-student-course/${session_id}`,
+                                        type: 'GET',
+                                        dataType: "json",
+                                        success: function(result) {
+                                            console.log(result);
+                                            if (result.status == 'success') {
+                                                var data = result.data;
+                                                console.log(data);
+                                                var lent = result.data.length;
+                                                for (var i = 0; i < lent; i++) {
+                                                    // console.log(data[i].id);
+                                                    if (data[i].id == section_id) {
+                                                        //disable checkbox
+                                                        $(`input[value=${section_id}]`)
+                                                            .attr(
+                                                                'disabled', true);
+                                                    }
+
+                                                }
+
+
+                                            } else if (result.status == 'error') {
+
+                                            }
+                                        }
+                                    });
+
+                                }
+                                name();
+
+
+                            }
+
+
+                        } else if (result.status == 'error') {
+
+                        }
+                    }
+                });
+            }
+            disableCheckbox();
         });
     </script>
 @endsection

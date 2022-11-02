@@ -32,10 +32,10 @@
 
                                         </select>
                                     </div>
-                                    <a href="{{ url('student-course-list') }}" id="submit"
-                                        class="btn btn-primary btn-user btn-block mt-5">
+                                    <div id="course_submit"></div>
+                                    {{-- <a id="submit" class="btn btn-primary btn-user btn-block mt-5">
                                         Select
-                                    </a>
+                                    </a> --}}
                                 </form>
                             </div>
                         </div>
@@ -83,12 +83,25 @@
                 });
             }
 
+            //select onchange
+            $("#session_name").change(function() {
+                var session_id = $(this).val();
+                console.log(session_id);
+                $("#course_submit").empty();
+                // ("#submit").attr("href", "{{ url('student-course-list') }}" + '/' + session_id);
+                $("#course_submit").append(
+                    $("<a></a>").attr("href", "{{ url('student-course-list') }}/" + session_id).attr(
+                        "class",
+                        "btn btn-primary btn-user btn-block mt-5").text("Select")
+                )
+            });
+
             //select session
             // specific teacher info
-            $("#submit").click(function() {
-                // var session_id = $("#session_name").val();
-                sessionStorage.setItem("session_name", $("#session_name").val());
-            })
+            // $("#submit").click(function() {
+
+            //     sessionStorage.setItem("session_name", $("#session_name").val());
+            // })
         });
     </script>
 @endsection

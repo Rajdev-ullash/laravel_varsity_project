@@ -68,7 +68,7 @@ Route::middleware(['CheckLogin'])->group(function () {
         //Student routes
         Route::get('/student-home', [StudentController::class, 'home']);
         Route::get('/student-session-list', [StudentController::class, 'sessionList']);
-        Route::get('/student-course-list', [StudentController::class, 'courseList']);
+        Route::get('/student-course-list/{id}', [StudentController::class, 'courseList']);
         Route::get('/student-enroll-list', [StudentController::class, 'enrollCourseList']);
         Route::get('/student-course-result', [StudentController::class, 'markSystem']);
     });

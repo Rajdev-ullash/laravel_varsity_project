@@ -389,6 +389,67 @@
 
             })
 
+            // if found course in course list then disable checkbox
+            function disableCheckbox() {
+                $.ajax({
+                    url: `http://127.0.0.1:8000/api/show-teacher-assign-marks-all/${section_id}`,
+                    type: 'GET',
+                    dataType: "json",
+                    success: function(result) {
+                        console.log(result);
+                        if (result.status == 'success') {
+                            var data = result.data;
+                            console.log(data);
+                            var lent = result.data.length;
+                            for (var i = 0; i < lent; i++) {
+                                // console.log(data[i].section_name);
+                                var student_id = data[i].user_id;
+
+                                function name($student_id) {
+                                    var student_id = data[i].student_id;
+                                    $.ajax({
+                                        url: `http://127.0.0.1:8000/api/show-teacher-enroll-student/${section_id}`,
+                                        type: 'GET',
+                                        dataType: "json",
+                                        success: function(result) {
+                                            console.log(result);
+                                            if (result.status == 'success') {
+                                                var data = result.data;
+                                                console.log(data);
+                                                var lent = result.data.length;
+                                                for (var i = 0; i < lent; i++) {
+                                                    // console.log(data[i].id);
+                                                    if (data[i].student_id == student_id) {
+                                                        //disable checkbox
+                                                        $(`input[value=${student_id}]`)
+                                                            .attr(
+                                                                'disabled', true);
+                                                    }
+
+                                                }
+
+
+                                            } else if (result.status == 'error') {
+
+                                            }
+                                        }
+                                    });
+
+                                }
+                                name();
+
+
+                            }
+
+
+                        } else if (result.status == 'error') {
+
+                        }
+                    }
+                });
+            }
+            disableCheckbox();
+
             // mark
             // sessionStorage.setItem('executed', false);
             var markSystem = (function() {
@@ -431,6 +492,9 @@
             //     var section_id = $('#st').attr('value');
 
             // })
+
+            //disable checkbox
+
 
 
 

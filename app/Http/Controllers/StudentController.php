@@ -42,8 +42,9 @@ class StudentController extends Controller
         
     }
 
-    public function courseList(){
-        return view('student.pages.courseList');
+    public function courseList($id){
+        $data = session()->get('userid');
+        return view('student.pages.courseList',['session_id' => $id, 'student_id' => $data]);
     }
 
     public function courseListView($id){
@@ -126,7 +127,7 @@ class StudentController extends Controller
                     ->where('enrolls.student_id','=',$student_id)
                     ->join('sections','enrolls.section_name','=','sections.id')
                     ->join('courses','sections.course_code','=','courses.id')
-                    ->select('enrolls.*','sections.*','courses.course_code as course_code','courses.course_title as course_title','courses.course_credit as course_credit','courses.course_semester as course_semester',)
+                    ->select('enrolls.*','sections.*','courses.course_code as course_code','courses.course_title as course_title','courses.course_credit as course_credit','courses.course_semester as course_semester', 'sections.id as section_id')
                     ->orderBy('courses.course_semester', 'asc')
                     ->orderBy('courses.course_credit', 'asc')
                     ->orderBy('sections.section_name', 'asc')
