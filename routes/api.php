@@ -83,15 +83,24 @@ Route::post('store-student-enroll-course',[StudentController::class,'enrollCours
 Route::get('show-student-enroll-course',[StudentController::class,'enrollCourseListView']);
 Route::post('student-enroll-course-delete/{id}',[StudentController::class,'enrollCourseDelete']);
 Route::get('show-student-course-result',[StudentController::class,'specificStudentAssignMarksView']);
+Route::get('show-student-all-course-result',[StudentController::class,'specificStudentTeacherGivenMarksView']);
 
 //teacher course
 Route::get('show-teacher-course',[TeacherController::class,'assignCourseListView']);
 Route::get('show-teacher-enroll-student/{id}',[TeacherController::class,'getEnrollStudentList']);
 Route::get('show-teacher-specific-mark/{id}',[TeacherController::class,'specificMarkSystem']);
 Route::post('store-teacher-mark/{id}',[TeacherController::class,'updateSpecificMarkSystem']);
+Route::post('delete-store-teacher-mark/{id}',[TeacherController::class,'deleteCourseSpecificMarkSystem']);
 Route::post('teacher-mark-system',[TeacherController::class,'storeTeacherMarkSystem']);
 Route::post('store-teacher-assign-marks',[TeacherController::class,'storeAssignMarks']);
 Route::get('show-teacher-assign-marks-all/{id}',[TeacherController::class,'storeAssignMarksView']);
 Route::get('show-teacher-assign-marks-list/{id}',[TeacherController::class,'editStoreAssignMarks']);
 Route::post('show-teacher-assign-marks-update/{id}',[TeacherController::class,'updateStoreAssignMarks']);
-
+Route::post('teacher-assign-course-marks-store',[TeacherController::class,'courseMarksStoreAction']);
+Route::get('show-teacher-assign-course-specific-mark/{id}',[TeacherController::class,'courseSpecificMarkSystem']);
+Route::post('show-teacher-assign-mark-store-course',[TeacherController::class,'storeStudentCourseMarks']);
+Route::post('show-teacher-assign-mark-store-course-json',[TeacherController::class,'jsonStudentCourseMarks']);
+Route::get('show-teacher-assign-mark-student-list/{id}',[TeacherController::class,'getStudentCourseMarks']);
+Route::get('show-teacher-assign-mark-specific-student/{id}',[TeacherController::class,'getSpecificJsonStudentCourseMarks']);
+Route::post('show-teacher-assign-course-specific-mark-update/{id}',[TeacherController::class,'updateCourseSpecificMarkSystem']);
+Route::post('show-teacher-assign-mark-specific-student-update/{id}',[TeacherController::class,'updateSpecificJsonStudentCourseMarks']);

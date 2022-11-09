@@ -11,6 +11,7 @@ use App\Models\Section;
 use App\Models\Enroll;
 use App\Models\Marksystem;
 use App\Models\Assignmark;
+use App\Models\Teachergivenmarks;
 use App\Models\AssignCourseTeacher;
 use Illuminate\Support\Facades\DB;
 
@@ -193,6 +194,34 @@ class StudentController extends Controller
             ]);
         }
     }
+
+    //specific student teachergiven marks
+    public function specificStudentTeacherGivenMarksView(Request $request){
+        $student_id = $request->session()->get('userid');
+        $data = DB::table('teachergivenmarks')
+                    ->where('teachergivenmarks.student_id','=',$student_id)
+                    ->join('sections','teachergivenmarks.section_name','=','sections.id')
+                    ->join('courses','sections.course_code','=','courses.id')
+                    ->join('users','teachergivenmarks.student_id','=','users.id')
+                    ->select('teachergivenmarks.*','sections.*','courses.course_code as course_code','courses.course_title as course_title','courses.course_credit as course_credit','courses.course_semester as course_semester','users.id as user_id','users.name as user_name','users.email as user_email','users.uid as user_uid',)
+                    ->orderBy('courses.course_semester', 'asc')
+                    ->orderBy('courses.course_credit', 'asc')
+                    ->orderBy('sections.section_name', 'asc')
+                    ->get();
+        if($data->count() > 0){
+            return response()->json([
+                'status' => 'success',
+                'data' => $data
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No data found'
+            ]);
+        }
+    }
+    
 
 
 

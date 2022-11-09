@@ -23,6 +23,12 @@
                             </div>
                             <form class="user">
                                 <div class="form-group">
+                                    <select class="form-select form-control-user py-3 w-100 px-3" name="session_name"
+                                        id="session_name">
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <select class="form-select form-control-user py-3 w-100 px-3" name="course_code"
                                         id="course_code">
 
@@ -30,7 +36,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="course_title"
+                                    <input type="hidden" class="form-control form-control-user" id="course_title"
                                         placeholder="Course Tittle..." disabled>
                                 </div>
                                 <div class="form-group">
@@ -41,11 +47,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="teacher_name"
+                                    <input type="hidden" class="form-control form-control-user" id="teacher_name"
                                         placeholder="Teacher Name..." disabled>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="teacher_email"
+                                    <input type="hidden" class="form-control form-control-user" id="teacher_email"
                                         placeholder="Teacher Email..." disabled>
                                 </div>
                                 <div class="form-group">
@@ -54,12 +60,7 @@
 
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <select class="form-select form-control-user py-3 w-100 px-3" name="session_name"
-                                        id="session_name">
 
-                                    </select>
-                                </div>
                                 <a href="#" id="submit" class="btn btn-primary btn-user btn-block">
                                     Assign Course Teacher
                                 </a>
@@ -89,14 +90,14 @@
                     success: function(result) {
                         console.log(result);
                         if (result.status == 'success') {
-                            var str = '<option selected>Selected Course Code</option>';
+                            var str = '<option selected>Selected Course Title</option>';
                             var data = result.data;
                             console.log(data);
                             var lent = result.data.length;
                             for (var i = 0; i < lent; i++) {
                                 console.log(data[i].course_code);
                                 str +=
-                                    `<option value="${data[i].id}">${data[i].course_code}</option>`
+                                    `<option value="${data[i].id}">${data[i].course_title}</option>`
                             }
                             $("#course_code").append(str);
 
@@ -121,14 +122,14 @@
                     success: function(result) {
                         console.log(result);
                         if (result.status == 'success') {
-                            var str = '<option selected>Selected Teacher Code</option>';
+                            var str = '<option selected>Selected Teacher Name</option>';
                             var data = result.data;
                             console.log(data);
                             var lent = result.data.length;
                             for (var i = 0; i < lent; i++) {
                                 console.log(data[i].uid);
                                 str +=
-                                    `<option value="${data[i].id}">${data[i].uid}</option>`
+                                    `<option value="${data[i].id}">${data[i].name}</option>`
                             }
                             $("#teacher_id").append(str);
 
@@ -145,6 +146,7 @@
             $("#course_code").change(function() {
                 var id = $(this).val();
                 console.log(id);
+                var str = ""
                 $.ajax({
                     url: `http://127.0.0.1:8000/api/show-course-edit/${id}`,
                     type: 'GET',

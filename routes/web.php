@@ -79,6 +79,8 @@ Route::middleware(['CheckLogin'])->group(function () {
         Route::get('/teacher-enroll-student-list/{id}', [TeacherController::class, 'enrollStudentList']);
         Route::get('/teacher-store-assign-mark-list/{id}', [TeacherController::class, 'storeAssignMarksList']);
         Route::get('/teacher-assign-mark-list-update/{id}', [TeacherController::class, 'assignMarksList']);
+        Route::get('/teacher-assign-mark-list-course/{id}', [TeacherController::class, 'specificCourseMarksStoreView']);
+        Route::get('/teacher-assign-student-mark-list-course/{id}', [TeacherController::class, 'studentCourseMarksList']);
 
 
     });

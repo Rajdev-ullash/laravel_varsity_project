@@ -30,7 +30,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="course_title"
+                                    <input type="hidden" class="form-control form-control-user" id="course_title"
                                         placeholder="Course Tittle..." disabled>
                                 </div>
                                 <div class="form-group">
@@ -72,14 +72,14 @@
                     success: function(result) {
                         console.log(result);
                         if (result.status == 'success') {
-                            var str = '<option selected>Selected Course Code</option>';
+                            var str = '<option selected>Selected Course Title</option>';
                             var data = result.data;
                             console.log(data);
                             var lent = result.data.length;
                             for (var i = 0; i < lent; i++) {
                                 console.log(data[i].course_code);
                                 str +=
-                                    `<option value="${data[i].id}">${data[i].course_code}</option>`
+                                    `<option value="${data[i].id}">${data[i].course_title}</option>`
                             }
                             $("#course_code").append(str);
 
