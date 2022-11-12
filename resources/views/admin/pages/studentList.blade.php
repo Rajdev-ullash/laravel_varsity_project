@@ -124,7 +124,7 @@
                             setTimeout(() => {
                                 window.location.reload();
                                 // getAllUsers();
-                            }, 5000);
+                            }, 3000);
                         } else if (result.status == 'error') {
                             Toastify({
                                 text: result.message,

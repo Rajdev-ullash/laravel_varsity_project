@@ -70,7 +70,7 @@
                                 setTimeout(() => {
                                     window.location.href =
                                         "http://127.0.0.1:8000/admin-session-list"
-                                }, 5000);
+                                }, 1000);
                             } else if (result.status == 'error') {
                                 str +=
                                     `<div class="alert alert-success" role="alert" id="reg"><strong>${result.message}</strong></div>`;

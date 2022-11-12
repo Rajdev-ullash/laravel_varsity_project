@@ -305,7 +305,7 @@
                             setTimeout(() => {
                                 window.location.reload();
                                 // getAllCourses();
-                            }, 5000);
+                            }, 3000);
                         } else if (result.status == 'error') {
                             Toastify({
                                 text: result.message,
@@ -337,7 +337,7 @@
                             setTimeout(() => {
                                 window.location.reload();
                                 // getAllCourses();
-                            }, 5000);
+                            }, 3000);
                         } else if (result.status == 'error') {
                             Toastify({
                                 text: result.message,

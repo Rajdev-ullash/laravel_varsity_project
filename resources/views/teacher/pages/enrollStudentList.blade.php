@@ -1017,7 +1017,7 @@
                                 setTimeout(() => {
                                     window.location.href =
                                         `http://127.0.0.1:8000/teacher-assign-student-mark-list-course/${section_id}`
-                                }, 2000);
+                                }, 1000);
                             } else if (result.status == 'error') {
                                 str +=
                                     `<div class="alert alert-success" role="alert" id="reg"><strong>${result.message}</strong></div>`;

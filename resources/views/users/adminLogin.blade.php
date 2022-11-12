@@ -95,7 +95,7 @@
                                 setTimeout(() => {
                                     window.location.href =
                                         "http://127.0.0.1:8000/admin-home"
-                                }, 5000);
+                                }, 1000);
                             } else if (result.status == 'err') {
                                 str +=
                                     `<div class="alert alert-success" role="alert" id="reg"><strong>${result.message}</strong></div>`;

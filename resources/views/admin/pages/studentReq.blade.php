@@ -128,7 +128,7 @@
                             }).showToast();
                             setTimeout(() => {
                                 window.location.reload();
-                            }, 5000);
+                            }, 3000);
                         } else if (result.status == 'error') {
                             Toastify({
                                 text: result.message,
